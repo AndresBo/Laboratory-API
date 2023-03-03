@@ -6,16 +6,17 @@ class Config(object):
     
     JWT_SECRET_KEY =  os.environ.get("SECRET_KEY")
     
-    @property
+    @property # creates getter and setter methods for the property
     def SQLALCHEMY_DATABASE_URI(self):
-        value = os.environ.get("DATABASE_URL")
+        db_url = os.environ.get("DATABASE_URL")
 
-        if not value:
+        if not db_url:
             raise ValueError("DATABASE_URL is not set")
 
-        return value
+        return db_url
+  
     
-
+# three environments: 
 class DevelopmentConfig(Config):
     DEBUG = True
 
@@ -28,7 +29,7 @@ class TestingConfig(Config):
     TESTING = True
 
 
-environment = os.environ.get("FLASK_ENV")
+environment = os.environ.get("FLASK_DEBUG")
 
 
 if environment == "production":
