@@ -2,9 +2,12 @@ from main import db
 
 
 class Analyst(db.Model):
-    __tablename__= "ANALYSTS"
+    __tablename__= "analysts"
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(), nullable=False, unique=True)
     password = db.Column(db.String(), nullable=False)
+    f_name= db.Column(db.String(), nullable=False)
+    l_name= db.Column(db.String(), nullable=False)
     admin = db.Column(db.Boolean(), default=False)
+    
