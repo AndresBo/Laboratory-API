@@ -9,3 +9,8 @@ class Request(db.Model):
     status = db.Column(db.String())
     analyst_id = db.Column(db.Integer, db.ForeingKey("analysts.id"), nullable=False)
     analyser_id = db.Column(db.Integer, db.ForeingKey("analysers.id"), nullable=False)
+    requests_tests = db.relationship(
+        "Request_test",
+        backref="request",
+        cascade="all, delete"
+    )
