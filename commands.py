@@ -17,3 +17,17 @@ def create_db():
 def drop_db():
     db.drop_all()
     print("Tables dropped")
+
+
+@db_commands.cli.command("seed")
+def seed_db():
+    analyser1 = Analyser(
+        name = "ICP1",
+        brand = "Thermo",
+        model = "2000",
+        year = "2012",
+    )
+    db.session.add(analyser1)
+
+    db.session.commit()
+    print("Table seeded")
