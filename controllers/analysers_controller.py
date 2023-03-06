@@ -1,10 +1,13 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from main import db
 from models.analyser import Analyser
+from models.analysts import Analyst
 from schemas.analyser_schema import analyser_schema, analysers_schema
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 analysers = Blueprint('analysers', __name__, url_prefix="/analysers")
+
 
 @analysers.route("/", methods=["GET"])
 def get_analysers():
@@ -30,8 +33,17 @@ def create_analyser():
 
 
 @analysers.route("/<int:id>/", methods=["DELETE"])
-def delete_analyser():
-    return "Analyser deleted"
+def delete_analyser(id):
+    #analyst_id = get_jwt_identity()
+    #analyst = Analyst.query.get(analyst_id)
+    analyser = Analyser.query.filter_by(id=id).first()
+    
+    if not Analyser:
+        return abort(401, description="Analyser does not exists")
+    
+    db.session.delete(analyser)
+    db.session.commit()
+    return jsonify(analyser_schema.dump(analyser))
 
 # !!!
 # @analysers.route("/<int:id>/", methods=["PUT"])
