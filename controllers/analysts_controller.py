@@ -8,12 +8,10 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 analysts = Blueprint('analysts', __name__, url_prefix="/analysts")
 
 
-@analysts.route("/", method=["GET"])
+@analysts.route("/", methods=["GET"])
 def get_analysts():
     analysts_list = Analyst.query.all()
 
     result = analysts_schema.dump(analysts_list)
 
     return jsonify(result)
-
-
