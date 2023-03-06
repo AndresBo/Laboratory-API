@@ -1,14 +1,16 @@
 from flask import Blueprint, jsonify, request
 from main import db
 from models.analyser import Analyser
+from schemas.analyser_schema import analyser_schema, analysers_schema
 
 
 analysers = Blueprint('analysers', __name__, url_prefix="/analysers")
 
 @analysers.route("/", methods=["GET"])
 def get_analysers():
-    #analysers_list = Analyser.query.all()
-    return "List of analysers retrieved"
+    analysers_list = Analyser.query.all()
+    result = analysers_schema.dump(analysers_list)
+    return jsonify(result)
 
 
 @analysers.route("/", methods=["POST"])
