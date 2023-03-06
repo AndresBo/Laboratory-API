@@ -14,8 +14,19 @@ def get_analysers():
 
 
 @analysers.route("/", methods=["POST"])
-def new_analyser():
-    return "added new analyser"
+def create_analyser():
+    analyser_fields = analyser_schema.load(request.json)
+    
+    new_analyser = Analyser()
+    new_analyser.name = analyser_fields["name"]
+    new_analyser.brand = analyser_fields["brand"]
+    new_analyser.model = analyser_fields["model"]
+    new_analyser.year = analyser_fields["year"]
+
+    db.session.add(new_analyser)
+    db.session.commit()
+    
+    return jsonify(analyser_schema.dump(new_analyser))
 
 
 @analysers.route("/<int:id>/", methods=["DELETE"])
