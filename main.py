@@ -10,5 +10,16 @@ def create_app():
     app.config.from_object("config.app_config")
 
     db.init_app(app)
+    
+    
 
+    from controllers import registerable_controllers
+
+    for controller in registerable_controllers:
+        app.register_blueprint(controller)
+
+    @app.route('/')
+    def welcome():
+        return "Welcome to Lab API"
+    
     return app
