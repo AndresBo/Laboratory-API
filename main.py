@@ -13,8 +13,11 @@ def create_app():
 
     db.init_app(app)
     ma.init_app(app)
-    
+
     # import controllers and activate Blueprints:
+    from commands import db_commands
+    app.register_blueprint(db_commands)
+
     from controllers import registerable_controllers
 
     for controller in registerable_controllers:
