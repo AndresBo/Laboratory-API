@@ -1,7 +1,9 @@
 from main import db
+from main import bcrypt
 from flask import Blueprint
-# bcyrpt
+
 from models.analyser import Analyser
+from models.analysts import Analyst
 
 
 db_commands = Blueprint("db", __name__)
@@ -28,6 +30,19 @@ def seed_db():
         year = "2012",
     )
     db.session.add(analyser1)
+
+    admin_user = Analyst(
+        email = "admin@email.com",
+        password = bcrypt.generate_password_hash("password123").decode("utf-8"),
+        admin = True
+    )
+    db.session.add(admin_user)
+
+    analyst1 = Analyst(
+        email = "analyst1@email.com",
+        password = bcrypt.generate_password_hash("123456").decode("utf-8"),
+    )
+    db.session.add(analyst1)
 
     db.session.commit()
     print("Table seeded")
