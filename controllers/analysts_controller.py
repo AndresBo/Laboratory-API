@@ -19,7 +19,7 @@ def get_analysts():
     return jsonify(result)
 
 
-@analysts.route("/register/", methods=["POST"])
+@analysts.route("/register", methods=["POST"])
 def auth_register():
     analyst_fields = analyst_schema.load(request.json)
 
@@ -41,3 +41,18 @@ def auth_register():
     access_token = create_access_token(identity=str(analyst.id), expires_delta=expiry)
 
     return jsonify({"analyst":analyst.email, "token": access_token})
+
+
+@analysts.route("/login", methods=["POST"])
+def auth_login():
+    analyst_fields = analyst_schema.load(request.json)
+
+    analyst = Analyst.query.filter_by(email=analyst_fields["email"]).first()
+
+    if not analyst or not bcrypt.check_password_hash(analyst.password, analyst_fields["password"]):
+        return abort(401, description="Incorrect email or password")
+    
+    expiry = timedelta(days=1)
+    access_token = create_access_token(identity=str(analyst.id), expires_delta=expiry)
+
+    return jsonify({"analyst":analyst.email, "token":access_token})    
