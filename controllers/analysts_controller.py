@@ -4,7 +4,7 @@ from main import bcrypt
 from datetime import timedelta
 from models.analysts import Analyst
 from schemas.analyst_schema import analyst_schema, analysts_schema
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 
 analysts = Blueprint('analysts', __name__, url_prefix="/analysts")

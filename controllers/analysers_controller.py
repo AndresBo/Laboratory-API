@@ -33,9 +33,18 @@ def create_analyser():
 
 
 @analysers.route("/<int:id>/", methods=["DELETE"])
+@jwt_required()
 def delete_analyser(id):
-    #analyst_id = get_jwt_identity()
-    #analyst = Analyst.query.get(analyst_id)
+    analyst_id = get_jwt_identity()
+
+    analyst = Analyst.query.get(analyst_id)
+
+    if not analyst:
+        return abort(401, description="Invalid user")
+    
+    if not analyst.admin:
+        return abort(401, description="Unauthorized user, contact Admin")
+    
     analyser = Analyser.query.filter_by(id=id).first()
     
     if not Analyser:
