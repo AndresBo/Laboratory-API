@@ -25,7 +25,7 @@ def create_analyser():
 
     if not analyst:
         return abort(401, description="Invalid user")
-    
+    # only admins can create a new analyser
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin") 
  
@@ -53,7 +53,7 @@ def delete_analyser(name):
 
     if not analyst:
         return abort(401, description="Invalid user")
-    
+    # only admins can delete analyser
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     
@@ -65,5 +65,3 @@ def delete_analyser(name):
     db.session.delete(analyser)
     db.session.commit()
     return jsonify(analyser_schema.dump(analyser))
-
-
