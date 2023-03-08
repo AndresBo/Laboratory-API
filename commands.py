@@ -4,6 +4,7 @@ from flask import Blueprint
 
 from models.analyser import Analyser
 from models.analysts import Analyst
+from models.tests import Test
 
 
 db_commands = Blueprint("db", __name__)
@@ -31,6 +32,14 @@ def seed_db():
     )
     db.session.add(analyser1)
 
+    analyser2 = Analyser(
+        name = "ICP2",
+        brand = "Thermo",
+        model = "3000",
+        year = "2013"
+    )
+    db.session.add(analyser2)
+    
     admin_user = Analyst(
         email = "admin@email.com",
         password = bcrypt.generate_password_hash("password123").decode("utf-8"),
@@ -43,6 +52,17 @@ def seed_db():
         password = bcrypt.generate_password_hash("123456").decode("utf-8"),
     )
     db.session.add(analyst1)
+
+    test1 = Test(
+        name = "zinc"
+    )
+    db.session.add(test1)
+
+    test2 = Test(
+        name = "copper"
+    )
+    db.session.add(test2)
+
 
     db.session.commit()
     print("Table seeded")
