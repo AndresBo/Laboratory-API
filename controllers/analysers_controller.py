@@ -17,7 +17,19 @@ def get_analysers():
 
 
 @analysers.route("/", methods=["POST"])
+@jwt_required()
 def create_analyser():
+    analyst_id = get_jwt_identity()
+
+    analyst = Analyst.query.get(analyst_id)
+
+    if not analyst:
+        return abort(401, description="Invalid user")
+    
+    if not analyst.admin:
+        return abort(401, description="Unauthorized user, contact Admin") 
+ 
+    
     analyser_fields = analyser_schema.load(request.json)
     
     new_analyser = Analyser()
@@ -32,9 +44,9 @@ def create_analyser():
     return jsonify(analyser_schema.dump(new_analyser))
 
 
-@analysers.route("/<int:id>/", methods=["DELETE"])
+@analysers.route("/<string:name>/", methods=["DELETE"])
 @jwt_required()
-def delete_analyser(id):
+def delete_analyser(name):
     analyst_id = get_jwt_identity()
 
     analyst = Analyst.query.get(analyst_id)
@@ -45,7 +57,7 @@ def delete_analyser(id):
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     
-    analyser = Analyser.query.filter_by(id=id).first()
+    analyser = Analyser.query.filter_by(name=name).first()
     
     if not Analyser:
         return abort(401, description="Analyser does not exists")
