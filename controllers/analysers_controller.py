@@ -31,7 +31,7 @@ def create_analyser():
  
     
     analyser_fields = analyser_schema.load(request.json)
-    
+
     new_analyser = Analyser()
     new_analyser.name = analyser_fields["name"]
     new_analyser.brand = analyser_fields["brand"]
@@ -66,7 +66,4 @@ def delete_analyser(name):
     db.session.commit()
     return jsonify(analyser_schema.dump(analyser))
 
-# !!!
-# @analysers.route("/<int:id>/", methods=["PUT"])
-# def modify_analyser():
-#     return "analyser modified"
+
