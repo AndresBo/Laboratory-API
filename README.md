@@ -13,4 +13,4 @@ Core functionality would allow an analyst to:
 3. Update a request
 4. Delete a request
 
-
+Additional functionality allows ONLY administrators to create, read, update and delete: tests and analysers. 
