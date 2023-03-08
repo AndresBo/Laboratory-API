@@ -59,7 +59,7 @@ def delete_analyser(name):
     
     analyser = Analyser.query.filter_by(name=name).first()
     
-    if not Analyser:
+    if not analyser:
         return abort(401, description="Analyser does not exists")
     
     db.session.delete(analyser)

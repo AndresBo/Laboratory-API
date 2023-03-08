@@ -39,3 +39,26 @@ def create_test():
     db.session.commit()
 
     return jsonify(test_schema.dump(new_test))
+
+
+@tests.route("/<string:name>/", methods=["DELETE"])
+@jwt_required()
+def delete_test(name):
+    analyst_id = get_jwt_identity()
+
+    analyst = Analyst.query.get(analyst_id)
+
+    if not analyst:
+        return abort(401, description="Invalid user")
+    # only admins can delete analyser
+    if not analyst.admin:
+        return abort(401, description="Unauthorized user, contact Admin")
+    
+    test = Test.query.filter_by(name=name).first()
+
+    if not test:
+        return abort(401, description="Test does not exists")
+
+    db.session.delete(test)
+    db.session.commit()
+    return jsonify(test_schema.dump(test))
