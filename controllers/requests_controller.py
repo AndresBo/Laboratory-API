@@ -36,4 +36,25 @@ def create_request():
 
     return jsonify(request_schema.dump(new_request))
 
+
+@requests.route("/<int:id>/", methods=["DELETE"])
+@jwt_required()
+def delete_request(id):
+    analyst_id = get_jwt_identity()
+
+    analyst = Analyst.query.get(analyst_id)
+
+    if not analyst:
+        return abort(401, description="Invalid user")
+    
+    request = Request.query.filter_by(id=id).first()
+
+    if not request:
+        return abort(401, description="Request does not exists")
+    
+    db.session.delete(request)
+    db.session.commit()
+
+    return jsonify(request_schema.dump(request))
+
     
