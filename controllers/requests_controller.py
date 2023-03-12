@@ -6,7 +6,7 @@ from schemas.request_schema import request_schema, requests_schema
 requests = Blueprint('requests', __name__, url_prefix="/requests")
 
 
-@request.route("/", methods=["GET"])
+@requests.route("/", methods=["GET"])
 def get_requests():
     requests_list = Request.query.all()
     result = requests_schema.dump(requests_list)

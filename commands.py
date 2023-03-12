@@ -5,6 +5,7 @@ from flask import Blueprint
 from models.analyser import Analyser
 from models.analysts import Analyst
 from models.tests import Test
+from models.requests import Request
 
 
 db_commands = Blueprint("db", __name__)
@@ -63,6 +64,17 @@ def seed_db():
     )
     db.session.add(test2)
 
+    request1 = Request(
+        date = "12/10/2020",
+        status = "processing"
+    )
+    db.session.add(request1)
+
+    request2 = Request(
+        date = "12/11/2020",
+        status = "finalized"
+    )
+    db.session.add(request2)
 
     db.session.commit()
     print("Table seeded")
