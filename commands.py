@@ -69,14 +69,17 @@ def seed_db():
     request1 = Request(
         date = "12/10/2020",
         status = "processing",
-        analyst_email = analyst1.email
+        analyst_email = analyst1.email,
+        analyser_name = analyser1.name
+
     )
     db.session.add(request1)
 
     request2 = Request(
         date = "12/11/2020",
         status = "finalized",
-        analyst_email = admin_user.email
+        analyst_email = admin_user.email,
+        analyser_name = analyser2.name
     )
     db.session.add(request2)
 
