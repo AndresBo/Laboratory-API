@@ -25,11 +25,13 @@ def create_request():
     if not analyst:
         return abort(401, description="Invalid user")
 
+    
     request_fields = request_schema.load(request.json)
 
     new_request = Request()
     new_request.date = request_fields["date"]
     new_request.status = request_fields["status"]
+    new_request.analyst_email = analyst.email
 
     db.session.add(new_request)
     db.session.commit()
