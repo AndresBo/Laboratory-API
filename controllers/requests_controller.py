@@ -32,6 +32,7 @@ def create_request():
     new_request.date = request_fields["date"]
     new_request.status = request_fields["status"]
     new_request.analyst_email = analyst.email
+    new_request.analyser_name = request_fields["analyser_name"]
 
     db.session.add(new_request)
     db.session.commit()
