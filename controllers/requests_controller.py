@@ -50,11 +50,42 @@ def delete_request(id):
     request = Request.query.filter_by(id=id).first()
 
     if not request:
-        return abort(401, description="Request does not exists")
+        return abort(400, description="Request does not exists")
     
     db.session.delete(request)
     db.session.commit()
 
     return jsonify(request_schema.dump(request))
+
+
+@requests.route("/<int:id>/", methods=["PUT"])
+@jwt_required()
+def update_request(id):
+    request_fields = request_schema.load(request.json)
+
+
+    analyst_id = get_jwt_identity()
+
+    analyst = Analyst.query.get(analyst_id)
+
+    if not analyst:
+        return abort(401, description="Invalid user")
+    
+       
+    to_update_request = Request.query.filter_by(id=id).first()
+
+    if not to_update_request:
+        return abort(400, description="Request does not exists")
+    
+    #update request
+    to_update_request.status = request_fields["status"]
+
+    db.session.commit()
+
+    return jsonify(request_schema.dump(to_update_request))
+    
+
+
+    
 
     
