@@ -20,7 +20,16 @@ def get_analysts():
 
 
 @analysts.route("/register", methods=["POST"])
+@jwt_required(optional=True)
 def auth_register():
+    analyst_id = get_jwt_identity()
+    logged_analyst = Analyst.query.get(analyst_id)
+    if not logged_analyst:
+        return abort(401, description="Logged in Admin required to create new Analyst user")
+    if not logged_analyst.admin:
+        return abort(401, description="Contact Admin to create new Analysts user")
+    
+    # create new analyst 
     analyst_fields = analyst_schema.load(request.json)
 
     analyst = Analyst.query.filter_by(email=analyst_fields["email"]).first()
