@@ -10,8 +10,8 @@ class Analyser(db.Model):
     brand = db.Column(db.String(), nullable=False)
     model = db.Column(db.String(), nullable=False)
     year = db.Column(db.String(), nullable=False)
-    # requests = db.relationship(
-    #     "Request",
-    #     backref="analyser",
-    #     cascade="all, delete"
-    # )
+    requests = db.relationship(
+        "Request",
+        backref="analyser",
+        cascade="all, delete"
+    )
