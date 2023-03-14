@@ -6,6 +6,7 @@ from models.analyser import Analyser
 from models.analysts import Analyst
 from models.tests import Test
 from models.requests import Request
+from models.requests_tests import Request_test
 
 
 db_commands = Blueprint("db", __name__)
@@ -64,6 +65,16 @@ def seed_db():
     )
     db.session.add(test2)
 
+    test3 = Test(
+        name = "lead"
+    )
+    db.session.add(test3)
+
+    test4 = Test(
+        name = "mercury"
+    )
+    db.session.add(test4)
+
     db.session.commit()
 
     request1 = Request(
@@ -82,6 +93,32 @@ def seed_db():
         analyser_name = analyser2.name
     )
     db.session.add(request2)
+
+
+    request_test1 = Request_test(
+        request_id = request1.id,
+        test_name = test1.name
+    )
+    db.session.add(request_test1)
+
+    request_test2 = Request_test(
+        request_id = request1.id,
+        test_name = test2.name
+    )
+    db.session.add(request_test2)
+
+    request_test3 = Request_test(
+        request_id = request1.id,
+        test_name = test3.name
+    )
+    db.session.add(request_test3)
+
+    request_test4 = Request_test(
+        request_id = request2.id,
+        test_name = test4.name
+    )
+    db.session.add(request_test4)
+
 
     db.session.commit()
     print("Table seeded")
