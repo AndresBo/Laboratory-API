@@ -1,8 +1,6 @@
 from main import ma
 from marshmallow.validate import Length
 from models.analysts import Analyst
-#from marshmallow.exceptions import ValidationError
-#from pprint import pprint
 
 
 class AnalystSchema(ma.SQLAlchemyAutoSchema):
