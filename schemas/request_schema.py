@@ -1,9 +1,13 @@
 from main import ma 
+from marshmallow import fields
+from schemas.request_test_schema import RequestTestSchema
 
 
 class RequestSchema(ma.Schema):
     class Meta:
-        fields = ("id", "date", "status", "analyst_email", "analyser_name")
+        fields = ("id", "date", "status", "analyst_email", "analyser_name", "test")
+    # nested schema to show tests that belong to request
+    test = fields.List(fields.Nested("RequestTestSchema", only=("test_name",)))
 
 request_schema = RequestSchema()
 
