@@ -1,6 +1,5 @@
 from main import ma 
 from marshmallow import fields
-from schemas.request_test_schema import RequestTestSchema
 
 
 class RequestSchema(ma.Schema):

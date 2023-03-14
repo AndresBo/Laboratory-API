@@ -33,6 +33,7 @@ def create_request():
     new_request.status = request_fields["status"]
     new_request.analyst_email = analyst.email
     new_request.analyser_name = request_fields["analyser_name"]
+    #new_request.test = request_fields
 
     db.session.add(new_request)
     db.session.commit()
