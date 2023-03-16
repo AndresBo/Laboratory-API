@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, abort
 from main import db
 from models.requests import Request
 from models.analysts import Analyst
+from models.analyser import Analyser
 from models.requests_tests import Request_test
 from schemas.request_schema import request_schema, requests_schema
 from schemas.request_test_schema import request_test_schema
@@ -95,6 +96,16 @@ def update_request(id):
 @jwt_required()
 def add_test(id):
     test_fields = request_test_schema.load(request.json)
+
+    #verify analyser_id exists:
+    analyser = Analyser.query.filter_by(id=id).first()
+
+    if not analyser:
+        return abort(400, description="There is no Analyser by that ID number, please enter a valid Analyser ID")
+    
+    #verify test is a valid test:
+
+    
 
     new_test = Request_test()
     new_test.request_id = id
