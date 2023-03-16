@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify, request, abort
 from main import db
 from models.requests import Request
 from models.analysts import Analyst
+from models.requests_tests import Request_test
 from schemas.request_schema import request_schema, requests_schema
+from schemas.request_test_schema import request_test_schema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 requests = Blueprint('requests', __name__, url_prefix="/requests")
@@ -87,6 +89,22 @@ def update_request(id):
     db.session.commit()
 
     return jsonify(request_schema.dump(to_update_request))
+
+
+@requests.route("/addtest/<int:id>/", methods=["POST"])
+@jwt_required()
+def add_test(id):
+    test_fields = request_test_schema.load(request.json)
+
+    new_test = Request_test()
+    new_test.request_id = id
+    new_test.test_name = test_fields["test_name"]
+
+    db.session.add(new_test)
+    db.session.commit()
+
+    return jsonify(request_test_schema.dump(new_test))
+
     
 
 
