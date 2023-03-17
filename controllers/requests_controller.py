@@ -3,6 +3,7 @@ from main import db
 from models.requests import Request
 from models.analysts import Analyst
 from models.analyser import Analyser
+from models.tests import Test
 from models.requests_tests import Request_test
 from schemas.request_schema import request_schema, requests_schema
 from schemas.request_test_schema import request_test_schema
@@ -104,6 +105,11 @@ def add_test(id):
         return abort(400, description="There is no Analyser by that ID number, please enter a valid Analyser ID")
     
     #verify test is a valid test:
+    input_test = test_fields["test_name"]
+    test = Test.query.filter_by(name=input_test).first()
+
+    if not test:
+        return abort(400, description="There is no test by that name, enter a valid test")
 
     
 
