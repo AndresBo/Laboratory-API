@@ -99,10 +99,10 @@ def add_test(id):
     test_fields = request_test_schema.load(request.json)
 
     #verify analyser_id exists:
-    analyser = Analyser.query.filter_by(id=id).first()
+    analyser = Request.query.filter_by(id=id).first()
 
     if not analyser:
-        return abort(400, description="There is no Analyser by that ID number, please enter a valid Analyser ID")
+        return abort(400, description="There is no request by that ID number, please enter a valid request ID")
     
     #verify test is a valid test:
     input_test = test_fields["test_name"]
@@ -111,7 +111,8 @@ def add_test(id):
     if not test:
         return abort(400, description="There is no test by that name, enter a valid test")
 
-    
+    #verify test is not duplicate
+    #query 
 
     new_test = Request_test()
     new_test.request_id = id
