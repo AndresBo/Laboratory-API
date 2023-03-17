@@ -27,10 +27,20 @@ def create_analyser():
         return abort(401, description="Invalid user")
     # only admins can create a new analyser
     if not analyst.admin:
-        return abort(401, description="Unauthorized user, contact Admin") 
- 
+        return abort(401, description="Unauthorized user, contact Admin")
     
     analyser_fields = analyser_schema.load(request.json)
+
+    # check analyser name does not exists:
+    new_analyser_name = analyser_fields["name"]
+
+    existing_analyser_name = Analyser.query.filter_by(name=new_analyser_name).first()
+
+    if existing_analyser_name:
+        return abort(400, description="Pick a new name for the analyser")     
+ 
+    
+    
 
     new_analyser = Analyser()
     new_analyser.name = analyser_fields["name"]
