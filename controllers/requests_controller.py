@@ -2,11 +2,10 @@ from flask import Blueprint, jsonify, request, abort
 from main import db
 from models.requests import Request
 from models.analysts import Analyst
-from models.analyser import Analyser
-from models.tests import Test
 from models.requests_tests import Request_test
+from models.tests import Test
 from schemas.request_schema import request_schema, requests_schema
-from schemas.request_test_schema import request_test_schema
+from schemas.request_test_schema import request_test_schema, requests_tests_schema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 requests = Blueprint('requests', __name__, url_prefix="/requests")
@@ -99,9 +98,9 @@ def add_test(id):
     test_fields = request_test_schema.load(request.json)
 
     #verify request exists:
-    request = Request.query.filter_by(id=id).first()
+    request_id_input = Request.query.filter_by(id=id).first()
 
-    if not request:
+    if not request_id_input:
         return abort(400, description="There is no request by that ID number, please enter a valid request ID")
     
     #verify test is a valid test:
@@ -111,9 +110,13 @@ def add_test(id):
     if not test:
         return abort(400, description="There is no test by that name, enter a valid test")
 
-    #verify test is not duplicate
-    #query requests_tests
-
+    #verify test is not duplicate (a request id with duplicate tests)
+    existing_test_on_request = Request_test.query.filter_by(request_id=request_id_input.id, test_name=input_test).first()
+       
+    if existing_test_on_request:
+        return abort(400, description="That test is already in the request")
+   
+    # add the new test to the request:
     new_test = Request_test()
     new_test.request_id = id
     new_test.test_name = test_fields["test_name"]
@@ -124,8 +127,9 @@ def add_test(id):
     return jsonify(request_test_schema.dump(new_test))
 
     
-
-
-    
-
+@requests.route("/requesttest", methods=["GET"])
+def get_requestsTests():
+    requests_tests_list = Request_test.query.all()
+    result = requests_tests_schema.dump(requests_tests_list)
+    return jsonify(result)
     
