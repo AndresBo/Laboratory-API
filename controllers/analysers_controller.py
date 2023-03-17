@@ -39,9 +39,7 @@ def create_analyser():
     if existing_analyser_name:
         return abort(400, description="Pick a new name for the analyser")     
  
-    
-    
-
+    # create new analyser
     new_analyser = Analyser()
     new_analyser.name = analyser_fields["name"]
     new_analyser.brand = analyser_fields["brand"]

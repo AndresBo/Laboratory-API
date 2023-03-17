@@ -36,8 +36,7 @@ def create_request():
     new_request.status = request_fields["status"]
     new_request.analyst_email = analyst.email
     new_request.analyser_name = request_fields["analyser_name"]
-    #new_request.test = request_fields
-
+    
     db.session.add(new_request)
     db.session.commit()
 
@@ -91,7 +90,7 @@ def update_request(id):
 
     return jsonify(request_schema.dump(to_update_request))
 
-
+# add test to existing request:
 @requests.route("/addtest/<int:id>/", methods=["POST"])
 @jwt_required()
 def add_test(id):
