@@ -32,6 +32,13 @@ def create_test():
     
     test_fields = test_schema.load(request.json)
 
+    new_test_name = test_fields["name"]
+
+    preexisting_test = Test.query.filter_by(name=new_test_name).first()
+
+    if preexisting_test:
+        return abort(401, description="that test already exists")
+
     new_test = Test()
     new_test.name = test_fields["name"]
 
