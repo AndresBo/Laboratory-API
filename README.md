@@ -44,3 +44,7 @@ Disadvantages of an ORM:
 - Learning ORM tools
 - Slower than SQL
 - Complex queries may not be possible with ORM and will need SQL
+
+## ERD:
+![trace_elements](https://user-images.githubusercontent.com/85352176/226087292-a4bbba8c-b124-47f1-a3a9-435b11383406.png)
+
