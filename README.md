@@ -99,3 +99,18 @@ These endpoints provide analyzer information and allow and admin to create and d
 - GET localhost:5000/analysers/
 - POST localhost:5000/analysers/
 - DELETE localhosts:5000/analysers/name/
+
+
+## Third Party Services:
+See  `requirements.txt` for full list of third party dependencies. 
+
+- Flask: A Python web application framework that provides a collection of libraries and modules.
+- Bcrypt: Securely hash and salt user passwords.
+- Marshmallow: an ORM library for converting complex datatypes to and from Python datatypes. It Validates input data, Deserializes input data to app-level objects and Serialize app-level objects to primitive Python types.
+- SQLAlchemy: SQL toolkit and Object Relational Mapper written in Python, giving SQL utilities to the developer. It uses classes and mapps them to the database.
+- Flask-Bcrypt: Flask extension that provides hashing utilities.
+- Flask-JWT-Extended: Implements JSON Web Token (JWT) authentication tokens into our Flask API.
+- Flask-SQLAlchemy: Allows Flask to support SQLAlchemy.
+- Flask-marshmallow: adds additional features to marshmallow like integrating with Flask-SQLAlchemy.
+- Psycopg: PostgreSQL database adapter for Python.
+- PyJWT: Python library which allows to encode and decode JSON Web Tokens (JWT).
