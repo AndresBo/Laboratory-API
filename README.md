@@ -18,7 +18,7 @@ Core functionality would allow an analyst to:
 Additional functionality allows ONLY administrators to create, read, update and delete: tests, analysers and analysts.
 
 ## Database system:
-Api will use **PostgreSQL** an open-source relational database. 
+The API will use **PostgreSQL** an open-source relational database. 
 
 Advantages of PostgreSQL include:
 - Supports Python
