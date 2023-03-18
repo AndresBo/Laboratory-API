@@ -69,7 +69,7 @@ The following list shows the Name of the **Model** and its attributes with **(fk
 
 ### Requests:
 
-These collection of endpoints is the core of our API. It allows an authenticated user to create a new request, delete a request by entering the id, update a request using the id and adding tests to a existing request using the id of the request. 
+These collection of endpoints are the core of our API. It allows an authenticated user to create a new request, delete a request by entering the id, update a request using the id and adding tests to a existing request using the id of the request. 
 
 - GET localhost:5000/requests/
 - POST localhost:5000/requests/
