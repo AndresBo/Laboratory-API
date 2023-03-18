@@ -34,3 +34,13 @@ Object Relational Mapping (ORM) will bridge the gap between the relational datab
 
 For example:
 An SQL query like this one: `'SELECT id, name, email FROM users WHERE id = 3'`, in ORM can look like this: `users.GetById(3)`. 
+
+Advantages of using  ORM include:
+- Speeds development 
+- Handles logic to interact with database
+- Improved security. ORM tools can defend against malicious attacks like SQL Injection Vulnerability.
+
+Disadvantages of an ORM:
+- Learning ORM tools
+- Slower than SQL
+- Complex queries may not be possible with ORM and will need SQL
