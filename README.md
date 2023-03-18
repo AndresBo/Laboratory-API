@@ -68,7 +68,9 @@ The following list shows the Name of the **Model** and its attributes with **(fk
 ## Endpoints:
 
 ### Requests:
-This collection of endpoints is the core of our API. It allows an authenticated user
+
+These collection of endpoints is the core of our API. It allows an authenticated user to create a new request, delete a request by entering the id, update a request using the id and add tests to a existing request using the id of the request. 
+
 - GET localhost:5000/requests/
 - POST localhost:5000/requests/
 - DELETE localhost:5000/requests/id/
@@ -76,16 +78,24 @@ This collection of endpoints is the core of our API. It allows an authenticated 
 - POST localhost:5000/requests/addtest/id/
 
 ### User Authentication:
+
+These endpoints allow an existing user to login using their email and password. Also allow an admin to create new users.
+
 - GET localhost:5000/analysts/
 - POST localhost:5000/analysts/login
 - POST localhost:5000/analysts/register
 
 ### Tests:
+
+These endpoints provide available tests information and allow an admin user to create and delete tests.
+
 - GET localhost:5000/tests/
 - POST localhost:5000/tests/
 - DELETE localhost:5000/tests/name/
 
 ### Analyzer:
+
+These endpoints provide analyzer information and allow and admin to create and delete analyzers. 
 - GET localhost:5000/analysers/
 - POST localhost:5000/analysers/
 - DELETE localhosts:5000/analysers/name/
