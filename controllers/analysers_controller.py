@@ -25,7 +25,7 @@ def create_analyser():
 
     if not analyst:
         return abort(401, description="Invalid user")
-    # only admins can create a new analyser
+    # only admins can create a new analyzer
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     
@@ -65,6 +65,7 @@ def delete_analyser(name):
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     
+    # check analyzer exists
     analyser = Analyser.query.filter_by(name=name).first()
     
     if not analyser:

@@ -72,7 +72,7 @@ The following list shows the Name of the **Model** and its attributes with **(fk
 - PUT localhost:5000/requests/id/
 - POST localhost:5000/requests/addtest/id/
 
-### Login:
+### User Authentication:
 - GET localhost:5000/analysts/
 - POST localhost:5000/analysts/login
 - POST localhost:5000/analysts/register
@@ -80,4 +80,9 @@ The following list shows the Name of the **Model** and its attributes with **(fk
 ### Tests:
 - GET localhost:5000/tests/
 - POST localhost:5000/tests/
-- 
+- DELETE localhost:5000/tests/name/
+
+### Analyzer:
+- GET localhost:5000/analysers/
+- POST localhost:5000/analysers/
+- DELETE localhosts:5000/analysers/name/

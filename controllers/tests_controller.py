@@ -60,7 +60,7 @@ def delete_test(name):
     # only admins can delete analyser
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
-    
+    # ensure test exists:
     test = Test.query.filter_by(name=name).first()
 
     if not test:
