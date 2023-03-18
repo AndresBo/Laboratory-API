@@ -68,6 +68,7 @@ The following list shows the Name of the **Model** and its attributes with **(fk
 ## Endpoints:
 
 ### Requests:
+This collection of endpoints is the core of our API. It allows an authenticated user
 - GET localhost:5000/requests/
 - POST localhost:5000/requests/
 - DELETE localhost:5000/requests/id/
