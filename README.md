@@ -30,6 +30,8 @@ Disadvantages against MySQL
 - MySQL is not an object-relational database, this makes it less complex and easier to manage
 
 ## ORM:
+This API will use **SQLAlchemy ORM**.
+
 Object Relational Mapping (ORM) will bridge the gap between the relational database and the object oriented program in our application. Instead of using SQL to directly interact with our database, an ORM tool can write simpler queries.
 
 For example:
