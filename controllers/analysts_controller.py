@@ -12,6 +12,7 @@ analysts = Blueprint('analysts', __name__, url_prefix="/analysts")
 
 @analysts.route("/", methods=["GET"])
 def get_analysts():
+    # get all analysts
     analysts_list = Analyst.query.all()
 
     result = analysts_schema.dump(analysts_list)
@@ -22,16 +23,20 @@ def get_analysts():
 @analysts.route("/register", methods=["POST"])
 @jwt_required(optional=True)
 def auth_register():
+
     analyst_id = get_jwt_identity()
+
+    # validate user
     logged_analyst = Analyst.query.get(analyst_id)
+
     if not logged_analyst:
         return abort(401, description="Logged in Admin required to create new Analyst user")
+    # validate user is an admin
     if not logged_analyst.admin:
         return abort(401, description="Contact Admin to create new Analysts user")
     
-    # create new analyst 
     analyst_fields = analyst_schema.load(request.json)
-
+    # validate new email does not exists
     analyst = Analyst.query.filter_by(email=analyst_fields["email"]).first()
 
     if analyst:
@@ -55,7 +60,7 @@ def auth_register():
 @analysts.route("/login", methods=["POST"])
 def auth_login():
     analyst_fields = analyst_schema.load(request.json)
-
+    # query user exists:
     analyst = Analyst.query.filter_by(email=analyst_fields["email"]).first()
 
     if not analyst or not bcrypt.check_password_hash(analyst.password, analyst_fields["password"]):

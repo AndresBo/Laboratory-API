@@ -56,12 +56,12 @@ def create_request():
 @jwt_required()
 def delete_request(id):
     analyst_id = get_jwt_identity()
-
+    # check analysts is logged in
     analyst = Analyst.query.get(analyst_id)
 
     if not analyst:
         return abort(401, description="Invalid user")
-    
+    # check request exists, using the id
     request = Request.query.filter_by(id=id).first()
 
     if not request:
@@ -78,15 +78,14 @@ def delete_request(id):
 def update_request(id):
     request_fields = request_schema.load(request.json)
 
-
     analyst_id = get_jwt_identity()
-
+    # validate user is logged in:
     analyst = Analyst.query.get(analyst_id)
 
     if not analyst:
         return abort(401, description="Invalid user")
     
-       
+    # validate request exists using the request id   
     to_update_request = Request.query.filter_by(id=id).first()
 
     if not to_update_request:
@@ -98,6 +97,7 @@ def update_request(id):
     db.session.commit()
 
     return jsonify(request_schema.dump(to_update_request))
+
 
 # add test to existing request:
 @requests.route("/addtest/<int:id>/", methods=["POST"])
@@ -133,6 +133,7 @@ def add_test(id):
     db.session.commit()
 
     return jsonify(request_test_schema.dump(new_test))
+
 
 # list all many-to-many relationship requests_tests   
 @requests.route("/requesttest/", methods=["GET"])

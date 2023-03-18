@@ -26,7 +26,7 @@ def create_test():
 
     if not analyst:
         return abort(401, description="Invalid user")
-    # only admins can create a new analyser
+    # only admins can create a new analyzer
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     
@@ -34,6 +34,7 @@ def create_test():
 
     new_test_name = test_fields["name"]
 
+    # validate test does not already exists:
     preexisting_test = Test.query.filter_by(name=new_test_name).first()
 
     if preexisting_test:
@@ -52,12 +53,12 @@ def create_test():
 @jwt_required()
 def delete_test(name):
     analyst_id = get_jwt_identity()
-
+    # validate existing user:
     analyst = Analyst.query.get(analyst_id)
 
     if not analyst:
         return abort(401, description="Invalid user")
-    # only admins can delete analyser
+    # only admins can delete analyzer
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     # ensure test exists:

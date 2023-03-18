@@ -11,8 +11,11 @@ analysers = Blueprint('analysers', __name__, url_prefix="/analysers")
 
 @analysers.route("/", methods=["GET"])
 def get_analysers():
+    # get all analyzers:
     analysers_list = Analyser.query.all()
+
     result = analysers_schema.dump(analysers_list)
+
     return jsonify(result)
 
 
@@ -21,17 +24,19 @@ def get_analysers():
 def create_analyser():
     analyst_id = get_jwt_identity()
 
+    # validate user:
     analyst = Analyst.query.get(analyst_id)
 
     if not analyst:
         return abort(401, description="Invalid user")
-    # only admins can create a new analyzer
+    
+    # only admins can create a new analyzer:
     if not analyst.admin:
         return abort(401, description="Unauthorized user, contact Admin")
     
     analyser_fields = analyser_schema.load(request.json)
 
-    # check analyser name does not exists:
+    # check analyser name does not exists/avoid duplicates:
     new_analyser_name = analyser_fields["name"]
 
     existing_analyser_name = Analyser.query.filter_by(name=new_analyser_name).first()
@@ -39,7 +44,7 @@ def create_analyser():
     if existing_analyser_name:
         return abort(400, description="Pick a new name for the analyser")     
  
-    # create new analyser
+    # create new analyser:
     new_analyser = Analyser()
     new_analyser.name = analyser_fields["name"]
     new_analyser.brand = analyser_fields["brand"]
@@ -59,6 +64,7 @@ def delete_analyser(name):
 
     analyst = Analyst.query.get(analyst_id)
 
+    # validate user:
     if not analyst:
         return abort(401, description="Invalid user")
     # only admins can delete analyser
