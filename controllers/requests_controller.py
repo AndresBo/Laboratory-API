@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, abort
 from main import db
 from models.requests import Request
 from models.analysts import Analyst
+from models.analyser import Analyser
 from models.requests_tests import Request_test
 from models.tests import Test
 from schemas.request_schema import request_schema, requests_schema
@@ -21,16 +22,24 @@ def get_requests():
 @requests.route("/", methods=['POST'])
 @jwt_required()
 def create_request():
+
+    # check analyst is logged in
     analyst_id = get_jwt_identity()
 
     analyst = Analyst.query.get(analyst_id)
 
     if not analyst:
         return abort(401, description="Invalid user")
-
     
     request_fields = request_schema.load(request.json)
 
+    # check analyser_name is valid:
+    request_analyser = request_fields["analyser_name"]
+    existing_analyser = Analyser.query.filter_by(name=request_analyser).first()
+
+    if not existing_analyser:
+        return abort(401, description="No analizer by that name")
+    
     new_request = Request()
     new_request.date = request_fields["date"]
     new_request.status = request_fields["status"]

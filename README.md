@@ -59,8 +59,15 @@ The following list shows the Name of the **Model** and its attributes with **(fk
 - **Request_test**(*id*, request_id **(fk)**, test_name **(fk)**)
 
 ### Relationships:
-- One Analyts can have many Requests - One Request can have only one Analyst. This is a one-to-many relationship.
+- One Analyst can have many Requests - One Request can have only one Analyst. This is a one-to-many relationship.
 - One Analyzer can have many Requests assigned - One Request can be assigned to only one Analyzer. A one-to-many relationship.
 - One Test can be on many Requests - One Request can have many Tests. This is a many-to-many relationship that is handled by the Request_test Model.
 
+## Endpoints:
 
+### Requests:
+- GET localhost:5000/requests/
+- POST 
+
+### Login:
+- POST localhost:5000/analysts/login
