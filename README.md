@@ -12,7 +12,20 @@ Often day-to-day data is tracked using paper or at best a spreadsheet. This take
 Core functionality would allow an analyst to:
 1. Create a request
 2. Read a request
-3. Update a request
+3. Update a request: add tests to request, update request status.
 4. Delete a request
 
-Additional functionality allows ONLY administrators to create, read, update and delete: tests and analysers. 
+Additional functionality allows ONLY administrators to create, read, update and delete: tests, analysers and analysts.
+
+## Database system:
+Api will use **PostgreSQL** an open-source relational database. 
+
+Advantages of PostgreSQL include:
+- Supports Python
+- No licence cost
+- More SQL-compliant when compared to MySQL
+- PostgreSQL is an object-relational database offering more sophisticated data types. MySQL is purely relational database
+
+Disadvantages against MySQL 
+- MySQL is not an object-relational database, this makes it less complex and easier to manage
+
