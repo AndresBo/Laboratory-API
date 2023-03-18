@@ -134,8 +134,8 @@ def add_test(id):
 
     return jsonify(request_test_schema.dump(new_test))
 
-    
-@requests.route("/requesttest", methods=["GET"])
+# list all many-to-many relationship requests_tests   
+@requests.route("/requesttest/", methods=["GET"])
 def get_requestsTests():
     requests_tests_list = Request_test.query.all()
     result = requests_tests_schema.dump(requests_tests_list)
