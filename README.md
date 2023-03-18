@@ -29,3 +29,5 @@ Advantages of PostgreSQL include:
 Disadvantages against MySQL 
 - MySQL is not an object-relational database, this makes it less complex and easier to manage
 
+## ORM:
+Object Relational Mapping (ORM)
