@@ -48,3 +48,11 @@ Disadvantages of an ORM:
 ## ERD:
 ![trace_elements](https://user-images.githubusercontent.com/85352176/226087292-a4bbba8c-b124-47f1-a3a9-435b11383406.png)
 
+## Models:
+Laboratory-API has five models: Analyst, Analyzer, Request, Test and Request_test.
+
+- One Analyts can have many Requests - One Request can have only one Analyst. This is a one-to-many relationship.
+- One Analyzer can have many Requests assigned - One Request can be assigned to only one Analyzer. A one-to-many relationship.
+- One Test can be on many Requests - One Request can have many Tests. This is a many-to-many relationship that is handled by the Request_test Model.
+
+
